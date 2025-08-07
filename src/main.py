@@ -35,7 +35,7 @@ class WorkmateParser:
                         except json.JSONDecodeError:
                             print(f'Ошибка в файле {file_path}, строка {line}')
                             continue
-                str_counter = 0
+                str_counter = 1
             except FileNotFoundError:
                 print(f'Ошибка: Файл не найден: {file_path}')
                 continue
