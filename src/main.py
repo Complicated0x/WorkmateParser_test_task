@@ -126,6 +126,7 @@ def main():
                         help='Тип отчета (по умолчанию average)')
 
     parser.add_argument('--date',
+                        required=False,
                         type=WorkmateParser.valid_date,
                         help='Дата в формате YYYY-DD-MM'
                         )
