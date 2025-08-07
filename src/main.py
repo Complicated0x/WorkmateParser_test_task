@@ -10,6 +10,7 @@ class WorkmateParser:
     def parse_logs(files, target_date=None) -> dict:
         logs = []
         stats = defaultdict(lambda: {'total': 0, 'avg_time': 0.0})
+        str_counter = 1
 
         if not files:
             raise ValueError("Ошибка: Не указаны файлы для парсинга.")
@@ -21,15 +22,20 @@ class WorkmateParser:
                         try:
                             log = json.loads(line)
                             if 'url' not in log or not log['url']:
-                                print(f'Ошибка: В файле {file_path}, в строке {line} отсутствует поле url')
+                                print(f'Ошибка: В файле {file_path}, в строке {str_counter} отсутствует поле url')
                                 continue
-                            if 'response_time' not in log or not log['response_time']:
-                                print(f'Ошибка: В файле {file_path}, в строке {line} отсутствует поле response_time')
+                            if log['response_time'] == 0:
+                                print(f'Ошибка: В файле {file_path}, в строке {str_counter} поле response_time равно нулю')
+                                continue
+                            elif 'response_time' not in log or not log['response_time']:
+                                print(f'Ошибка: В файле {file_path}, в строке {str_counter} отсутствует поле response_time')
                                 continue
                             logs.append(log)
+                            str_counter += 1
                         except json.JSONDecodeError:
                             print(f'Ошибка в файле {file_path}, строка {line}')
                             continue
+                str_counter = 0
             except FileNotFoundError:
                 print(f'Ошибка: Файл не найден: {file_path}')
                 continue
