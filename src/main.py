@@ -14,7 +14,6 @@ class WorkmateParser:
 
         if not files:
             raise ValueError("Ошибка: Не указаны файлы для парсинга.")
-        logs = []
         for file_path in files:
             try:
                 with open(file_path, 'r', encoding='utf-8') as file:
